@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
 **email** | **str** |  | 
+**full_name** | **str** |  | [optional] 
 **created_at** | **datetime** |  | 
 
 ## Example

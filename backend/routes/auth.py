@@ -23,7 +23,7 @@ def signup(user_data: schemas.UserCreate, db: Session = Depends(get_db)):
     try:
         hashed_pw = get_password_hash(user_data.password)
         print("DEBUG: Password hashed successfully")
-        user = models.User(email=user_data.email, hashed_password=hashed_pw)
+        user = models.User(email=user_data.email, full_name=user_data.full_name, hashed_password=hashed_pw)
         db.add(user)
         db.commit()
         db.refresh(user)

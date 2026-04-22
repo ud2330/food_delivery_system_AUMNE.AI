@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **user_name** | **str** |  | 
 **status** | **str** |  | 
 **created_at** | **datetime** |  | 
+**cancelled_at** | **datetime** |  | [optional] 
 **restaurant** | [**RestaurantOut**](RestaurantOut.md) |  | [optional] 
 
 ## Example

@@ -35,8 +35,9 @@ class OrderOut(BaseModel):
     user_name: StrictStr
     status: StrictStr
     created_at: datetime
+    cancelled_at: Optional[datetime] = None
     restaurant: Optional[RestaurantOut] = None
-    __properties: ClassVar[List[str]] = ["id", "restaurant_id", "user_id", "user_name", "status", "created_at", "restaurant"]
+    __properties: ClassVar[List[str]] = ["id", "restaurant_id", "user_id", "user_name", "status", "created_at", "cancelled_at", "restaurant"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -80,6 +81,11 @@ class OrderOut(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of restaurant
         if self.restaurant:
             _dict['restaurant'] = self.restaurant.to_dict()
+        # set to None if cancelled_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.cancelled_at is None and "cancelled_at" in self.model_fields_set:
+            _dict['cancelled_at'] = None
+
         # set to None if restaurant (nullable) is None
         # and model_fields_set contains the field
         if self.restaurant is None and "restaurant" in self.model_fields_set:
@@ -103,6 +109,7 @@ class OrderOut(BaseModel):
             "user_name": obj.get("user_name"),
             "status": obj.get("status"),
             "created_at": obj.get("created_at"),
+            "cancelled_at": obj.get("cancelled_at"),
             "restaurant": RestaurantOut.from_dict(obj["restaurant"]) if obj.get("restaurant") is not None else None
         })
         return _obj

@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,8 +30,9 @@ class UserOut(BaseModel):
     """ # noqa: E501
     id: StrictInt
     email: StrictStr
+    full_name: Optional[StrictStr] = None
     created_at: datetime
-    __properties: ClassVar[List[str]] = ["id", "email", "created_at"]
+    __properties: ClassVar[List[str]] = ["id", "email", "full_name", "created_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -72,6 +73,11 @@ class UserOut(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if full_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.full_name is None and "full_name" in self.model_fields_set:
+            _dict['full_name'] = None
+
         return _dict
 
     @classmethod
@@ -86,6 +92,7 @@ class UserOut(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "email": obj.get("email"),
+            "full_name": obj.get("full_name"),
             "created_at": obj.get("created_at")
         })
         return _obj

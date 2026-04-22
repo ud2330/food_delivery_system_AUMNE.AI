@@ -7,6 +7,7 @@ from typing import Optional
 
 class UserCreate(BaseModel):
     email: EmailStr
+    full_name: Optional[str] = None
     password: str
 
 
@@ -18,6 +19,7 @@ class UserLogin(BaseModel):
 class UserOut(BaseModel):
     id: int
     email: str
+    full_name: Optional[str] = None
     created_at: datetime
 
     model_config = {"from_attributes": True}
