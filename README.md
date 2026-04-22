@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Food Delivery System
 
 Professional Full-Stack Food Delivery System built with FastAPI (Backend) and React (Frontend).
@@ -69,4 +69,6 @@ orders_api = OrdersApi(client)
 - `requirements.txt`: Python dependencies.
 =======
 # Food_delivery_system
->>>>>>> bdadb0cff0f6b1465f0aaff10aa7aa49be848a4f
+
+
+
